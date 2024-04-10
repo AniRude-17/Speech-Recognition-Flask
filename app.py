@@ -54,9 +54,26 @@ def upload_file():
         return jsonify({'message': 'File uploaded successfully', 'filename': filename, 'text': text}), 200
 
 
+@app.route('/check', methods=['POST'])
+def checkfile():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    if file:
+        file_type = file.content_type
+        filename = file.filename
+        file_length = len(file.read())
+
+        return jsonify({'message': 'File checked successfully', 'filename': filename, 'file_type': file_type, 'file_length': file_length}), 200
+
 @app.route('/')
 def hello_world():
     return 'The Knowledge Browser !!'
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8888)
