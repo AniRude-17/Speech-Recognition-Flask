@@ -51,6 +51,7 @@ def upload_file():
                 text = recognizer.recognize_google(audio_data)
                 print(text)    
         
+        os.remove(file_path)
         return jsonify({'message': 'File uploaded successfully', 'filename': filename, 'text': text}), 200
 
 
@@ -59,4 +60,4 @@ def hello_world():
     return 'The Knowledge Browser !!'
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8888)
+    app.run()
